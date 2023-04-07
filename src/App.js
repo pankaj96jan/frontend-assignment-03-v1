@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { Route, Routes, useNavigate } from "react-router-dom";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import "./pages/styles.css"
+import Header from "./pages/Header";
+import CompanyInfo from "./pages/CompanyInfo";
+import { useEffect } from "react";
+import ProtectedRoute from "./pages/ProtectedRoutes";
+const users = JSON.parse(localStorage.getItem("users"));
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+      <Routes>
+        <Route exact path="/" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        <Route path="/company-info" element={<CompanyInfo />} />
+        <Route path="*" element={<div>Page not found</div>} />
+      </Routes>
+    </>
   );
 }
 
